@@ -65,3 +65,116 @@ console.log(person.address.city, person.address.country); //Comma acts as space
 console.log(person.hobbies[1]); //Everything is normal
 const {firstName, lastName, address: {street}} = person; //Extract information from object
 console.log(firstName, lastName, street);
+person.email = 'dwang@somemail.com'; //Adding attribute
+console.log(person);
+
+//Arrays of Objects
+const todos = [
+    {
+        id: 1,
+        task: 'Take out trash',
+        isCompleted: true
+    },{
+        id: 2,
+        task: 'Meeting with boss',
+        isCompleted: false
+    },{
+        id: 3,
+        task: 'Dentist Appointment',
+        isCompleted: false
+    }
+];
+console.log(todos);
+console.log(todos[1].task); //Specific value in object
+
+//Convert to JSON
+//Note: JSON is similar to array of objects, but everything is double quotes
+const todoJSON = JSON.stringify(todos);
+console.log(todoJSON);
+
+//For loop
+for (let i = 0; i < 10; i++) console.log(`Splashed ${i} threes`); //No surprises
+for (let i = 0; i < todos.length; i++) console.log(todos[i].isCompleted); //Method 1
+for (let i of todos) console.log(i.task); //Method 2
+
+//While loop
+let i = 10;
+while (i > 0){
+    console.log(`Bricked ${i} threes`);
+    i--;
+}
+
+//High order array methods
+//forEach runs provided code for each element in array
+todos.forEach(function(i){
+    console.log(i.task);
+}); //Method 1
+todos.forEach(i => console.log(i.id)); //Method 2
+//Map extracts specific attributes from array
+let todoText = todos.map(function(i){
+    return i.task;
+}); //Method 1
+console.log(todoText);
+console.log(todos.map(i => i.id)); //Method 2
+//Filter returns elements that meet the given conditions
+//Note: Triple equal signs also compares the types
+console.log(todos.filter(i => i.isCompleted === false));
+//Nested
+console.log(todos.filter(i => !i.isCompleted).map(i => i.id));
+
+//Conditionals
+//In order to explain triple equal signs:
+console.log(10 == '10');
+console.log(10 === '10');
+const X = 9;
+if (X > 10 || 2 >= 1) console.log('Big');
+else if (X < 10 && 2 >= 1) console.log('Small');
+else console.log('Just right'); //Nothing special
+const color = X < 5 ? 'Red' : 'Blue'; //Also works
+//Switch statements (oh boy)
+switch(color){
+    case 'Red':
+        console.log('The color is red');
+        break;
+    case 'Blue':
+        console.log('The color is blue');
+        break;
+    default:
+        console.log('The color ain\'t red/blue');
+        break;
+}
+
+//Functions
+function add(p1 = 1, p2 = 1){ //Can set defaults
+    console.log(p1 + p2);
+}
+function add2(p1 = 1, p2 = 1){
+    return p1 + p2;
+}
+add(5, 6);
+add(5);
+add();
+console.log(add2(3, -4));
+const add3 = (p1 = 1, p2 = 1) => console.log(p1 + p2);
+const add4 = (p1 = 1, p2 = 1) => p1 + p2;
+add3(-3, -5);
+console.log(add4(-8, 16));
+
+//Constructor Functions
+function people(firstName, lastName, dob){
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.dob = new Date(dob); //Default date
+    this.getYear = function(){
+        return this.dob.getFullYear();
+    }
+}
+people.prototype.getName = function(){
+    return `${this.firstName} ${this.lastName}`;
+} //To add new attribute to existing constructor
+//Instantiate object
+const people1 = new people();
+const people2 = new people('Daniel', 'Wang', '2002-01-08');
+console.log(people1);
+console.log(people2.getYear());
+console.log(people2.getName());
