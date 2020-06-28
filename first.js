@@ -178,3 +178,4 @@ const people2 = new people('Daniel', 'Wang', '2002-01-08');
 console.log(people1);
 console.log(people2.getYear());
 console.log(people2.getName());
+console.log('Test5');
